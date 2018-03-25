@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hu"	layout:decorator="layouts/main">
+<head>
+<meta charset="UTF-8"></meta>
+	<title th:text="${pageTitle}">SFj - Minden napra egy sztori</title>
+</head>
+<body>
+		
+	<div layout:fragment="loginContent">
+		
+		<h1>Bloggerek: </h1>
+		<article th:each="blogger : ${bloggers}">
+        <header>
+            <h2 th:text="${blogger.name}">Ez itt a név</h2> 
+            
+        </header>
+       <h3>Kora:
+ 	    <span th:text="${blogger.age}">Ez egy buta blogger</span> éves
+ 	    </h3>
+        
+        <footer>
+            <address>
+                 <span></span>
+            </address>
+        </footer>
+        <hr/>
+    </article>
+
+	</div>
+		
+		
+</body>
+</html>

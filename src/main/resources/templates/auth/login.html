@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="hu" layout:decorator="layouts/main">
+<head>
+<meta charset="UTF-8"></meta>
+<title>SFJ - Minden napra egy sztori</title>
+<style>
+div.container {
+    width: 90%;
+    
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: blue;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 400px;
+    margin-left: 80px;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+</style>
+</head>
+<body>
+
+	<div layout:fragment="loginContent">
+<div class="container">
+   
+  <nav>
+		<form name="login" th:action="@{/login}" method="post" class="form-signin">
+			<h2 class="form-signin-heading">Kérlek jelentkezz be</h2>
+			<div id="err" th:if="${param.error}" class="alert alert-danger">Hibás felhasználói név és/vagy jelszó!</div>
+			<div th:if="${param.logout}" class="alert alert-success">Sikeresen kijelentkeztél!</div>
+			<label for="username" class="sr-only">Felhasználói név</label> 
+			    <input type="text" id="username" name="username" class="form-control" placeholder="Felhasználói név" required="true" /> 
+			<label for="password" class="sr-only">Jelszó</label> 
+			    <input type="password" id="password" name="password" class="form-control" placeholder="Jelszó" required="true" />
+			<div class="checkbox">
+				<label> <input id="remember-me" name="remember-me" type="checkbox" /> Emlékezz rám
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Bejelentkezés</button>
+		</form>
+		
+        <a href="/registration">Regisztrálni szeretnék</a>
+        </nav>
+        </div>
+	</div>
+
+</body>
+</html>

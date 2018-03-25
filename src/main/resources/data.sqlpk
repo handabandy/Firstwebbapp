@@ -1,0 +1,7 @@
+insert into Blogger (id,age,name) VALUES (2,21, 'Budi Rudi');
+insert into Blogger (id,age,name) VALUES (3,26, 'Bithünkö Thünkö');
+insert into STORIES (id,cím,content,posted,blogger_id) values (4,'Elsö Sztorim','Budi Rudi elsö története, melyben nem mesél el semmit.', '2018-02-21', (select id FROM BLOGGER where name = 'Budi Rudi') );
+insert into STORIES (id,cím,content,posted,blogger_id) values (5,'Thünkö története','Thünkö története nem igazán izgalmas.', '2018-02-21', (select id FROM BLOGGER where name = 'Bithünkö Thünkö') );
+insert into STORIES (id,cím,content,posted,blogger_id) values (6,'Második Sztorim','Budi Rudi második története sem igazán izgalmas.', '2018-02-21', (select id FROM BLOGGER where name = 'Budi Rudi') );
+insert into STORIES (id,cím,content,posted,blogger_id) values (7,'Thünkö második sztorija','Thünkö második története sem igazán izgalmas.', '2018-02-21', (select id FROM BLOGGER where name = 'Bithünkö Thünkö') );
+insert into STORIES (id,cím,content,posted,blogger_id) values (8,'Thünkö besokall','Thünkö ebben a sztoriban besokall.', '2018-02-21', (select id FROM BLOGGER where name = 'Bithünkö Thünkö') );
