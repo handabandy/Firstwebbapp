@@ -58,7 +58,7 @@ public class StoryServiceImpl implements StoryService{
 	//@PostConstruct
 	public void init()
 	{
-		Blogger blogger=new Blogger("Fikás Frodó", 36);
+		Blogger blogger=new Blogger("Fikás Frodó", "fikasfrodo");
 		bloggerReepository.save(blogger);
 		
 		Story story=new Story("Frodó sztorija", "Frodó tegnap bebaszott mint az állat!",
@@ -71,7 +71,7 @@ public class StoryServiceImpl implements StoryService{
 
 	@Override
 	public Story getSpecialStory() {
-		Blogger blogger=new Blogger("", 0);
+		Blogger blogger=new Blogger("", "");
 		Story teszt=new Story("HIBA!", "NINCS ILYEN CÍMMEL BLOGBEJEGYZÉS", blogger, new Date());
 		return teszt;
 	}

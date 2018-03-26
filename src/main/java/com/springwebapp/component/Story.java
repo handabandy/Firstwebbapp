@@ -90,11 +90,11 @@ public class Story {
 		List<Story> stories = new ArrayList<Story>();
 		
 		elso.setTitle("Elsö Sztorim");
-		elso.setBlogger(new Blogger("Budi Rudi",21));
+		elso.setBlogger(new Blogger("Budi Rudi","budirudi"));
 		elso.setPosted(new Date());
 		elso.setContent("Budi Rudi elsö története, melyben nem mesél el semmit.");
 		
-		masod.setBlogger(new Blogger("Bithünkö Thünkö", 34));
+		masod.setBlogger(new Blogger("Bithünkö Thünkö","bithunkoo"));
 		masod.setContent("Thünkö története nem igazán izgalmas.");
 		masod.setPosted(new Date());
 		masod.setTitle("Thünkö története");
@@ -110,7 +110,7 @@ public class Story {
 		Story elso=new Story();
 		
 		elso.setTitle("Elsö Sztorim");
-		elso.setBlogger(new Blogger("Budi Rudi",21));
+		elso.setBlogger(new Blogger("Budi Rudi","budirudi"));
 		elso.setPosted(new Date());
 		elso.setContent("Budi Rudi elsö története, melyben nem mesél el semmit.");
 		

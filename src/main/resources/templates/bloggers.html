@@ -8,15 +8,16 @@
 		
 	<div layout:fragment="loginContent">
 		
-		<h1>Bloggerek: </h1>
+		<h2>Bloggerek: </h2>
 		<article th:each="blogger : ${bloggers}">
         <header>
-            <h2 th:text="${blogger.name}">Ez itt a név</h2> 
+          <h3> Név: <span th:text="${blogger.name}">Ez itt a név</span> 
+          </h3>
             
         </header>
-       <h3>Kora:
- 	    <span th:text="${blogger.age}">Ez egy buta blogger</span> éves
- 	    </h3>
+       <h4>Username:
+ 	    <span th:text="${blogger.username}">Ez egy buta blogger</span>.
+ 	    </h4>
         
         <footer>
             <address>

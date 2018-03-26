@@ -9,8 +9,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.springwebapp.component.Blogger;
 import com.springwebapp.entities.Role;
 import com.springwebapp.entities.User;
+import com.springwebapp.repository.BloggerRepository;
 import com.springwebapp.repository.RoleRepository;
 import com.springwebapp.repository.UserRepository;
 @Service
@@ -18,14 +20,16 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	
 	private UserRepository userRepo;
 	private RoleRepository roleRepo;
+	private BloggerRepository bloggerrepo;
 	
 	private final String USER_ROLE="USER";
 	private final String ADMIN_ROLE="ADMIN";
 	
-	public UserServiceImpl(UserRepository userRepo, RoleRepository roleRepo) {
+	public UserServiceImpl(UserRepository userRepo, RoleRepository roleRepo, BloggerRepository bRepository) {
 		super();
 		this.userRepo = userRepo;
 		this.roleRepo = roleRepo;
+		this.bloggerrepo=bRepository;
 	}
 
 
@@ -80,6 +84,9 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 			}
 		}
 		userRepo.save(user);
+		String name=user.getLastname()+" "+user.getFirstname();
+		Blogger blogger=new Blogger(name, user.getUsername());
+		bloggerrepo.save(blogger);
 		return true;
 	}
 	//@PostConstruct

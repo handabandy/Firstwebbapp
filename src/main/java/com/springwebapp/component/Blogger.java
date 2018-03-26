@@ -15,7 +15,7 @@ public class Blogger {
 	@Id
 	private Long id;
 	private String name;
-	private int age;
+	private String username;
 	@OneToMany(mappedBy = "blogger")
 	private List<Story> stories=new ArrayList<>();
 	
@@ -28,9 +28,9 @@ public class Blogger {
 		return new Blogger();
 	}
 	
-	public Blogger(String name, int age){
+	public Blogger(String name, String username){
 		this.name = name;
-		this.age = age;
+		this.username = username;
 	}
 	
 	public Long getId() {
@@ -45,11 +45,14 @@ public class Blogger {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getAge() {
-		return age;
+	
+
+	public String getUsername() {
+		return username;
 	}
-	public void setAge(int age) {
-		this.age = age;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public List<Story> getStories() {
