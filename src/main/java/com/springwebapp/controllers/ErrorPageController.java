@@ -27,7 +27,7 @@ public class ErrorPageController implements ErrorController {
 		RequestAttributes rA = new ServletRequestAttributes(request);
 		Map<String,Object> error = this.errorAttributes.getErrorAttributes(rA, true);
 		
-		model.addAttribute("pageTitle","Valamit elbasztál, Kötsög!");
+		//model.addAttribute("pageTitle","Valamit elbasztál, Kötsög!");
 		model.addAttribute("napiSzar","napiSZAR.com");
 		model.addAttribute("timestamp",error.get("timestamp"));
 		model.addAttribute("error",error.get("error"));

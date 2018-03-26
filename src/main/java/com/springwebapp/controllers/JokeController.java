@@ -26,7 +26,7 @@ public class JokeController {
 	@RequestMapping("/joke")
 	public String showJoke(Model model) {
 		
-		model.addAttribute("pageTitle","Szeva Te Kis Kötsög!");
+		//model.addAttribute("pageTitle","Szeva Te Kis Kötsög!");
 		model.addAttribute("joke",jokeService.getJoke());
 		model.addAttribute("username",database.getUserName());
 		model.addAttribute("password", database.getPassword());
