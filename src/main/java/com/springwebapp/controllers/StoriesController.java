@@ -56,7 +56,7 @@ public class StoriesController {
 	@RequestMapping("/stories")
 	public String showStories(Model model)
 	{
-		model.addAttribute("pageTitle","Szeva Te Kis Kötsög!");
+		//model.addAttribute("pageTitle","Szeva Te Kis Kötsög!");
 		model.addAttribute("napiSzar","napiSZAR.com");
 		model.addAttribute("stories",storyService.getStories());
 		
@@ -67,7 +67,7 @@ public class StoriesController {
 	//@Secured("ROLE_ADMIN") nem szükséges, ha van a SecureConfig-ban configure() metódus.
 	@RequestMapping("/story")
 	public String story(Model model) {
-		model.addAttribute("pageTitle", "Szeva Te Kis Nyomi!");
+		//model.addAttribute("pageTitle", "Szeva Te Kis Nyomi!");
 		model.addAttribute("napiSzar","napiSZAR.com");
 		model.addAttribute("story", storyService.getStory());
 		return "story";
@@ -80,14 +80,14 @@ public class StoriesController {
 	
 	@RequestMapping("/bloggers")
 	public String bloggers(Model model){
-		model.addAttribute("pageTitle", "Szeva Te Kis Nyomi!");
+		//model.addAttribute("pageTitle", "Szeva Te Kis Nyomi!");
 		model.addAttribute("bloggers",bloggerService.getBloggers() );
 		return "bloggers";
 	}
 	
 	@RequestMapping("/sztorik")
 	public String stories(Model model){
-		model.addAttribute("pageTitle","Szeva Te Kis Kötsög!");
+		//model.addAttribute("pageTitle","Szeva Te Kis Kötsög!");
 		model.addAttribute("stories",storyService.getStories());
 		return "sztorik";
 	}
@@ -96,12 +96,12 @@ public class StoriesController {
 	public String searchTitle(@PathVariable(value="title") String title, Model model)
 	{
 		if (title=="") {
-			model.addAttribute("pageTitle", "Szeva Te Kis Nyomi!");
+			//model.addAttribute("pageTitle", "Szeva Te Kis Nyomi!");
 			model.addAttribute("napiSzar","napiSZAR.com");
 			model.addAttribute("story", storyService.getSpecialStory());
 			return "story";
 		}
-			model.addAttribute("pageTitle", "Szeva Te Kis Nyomi!");
+			//model.addAttribute("pageTitle", "Szeva Te Kis Nyomi!");
 			model.addAttribute("napiSzar","napiSZAR.com");
 			model.addAttribute("story", storyService.getSpecifiedStory(title));
 			return "story";

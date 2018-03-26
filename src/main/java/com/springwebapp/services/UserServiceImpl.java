@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	}
 	//@PostConstruct
 	public void init() {
-		userRepo.delete(findByUsername("admin"));
+		//userRepo.delete(findByUsername("admin"));
 	}
 
 }
