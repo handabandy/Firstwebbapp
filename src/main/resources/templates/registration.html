@@ -53,6 +53,8 @@ article {
 		 	    <input type="text" id="firstname" name="firstname" th:field="*{firstname}" class="form-control" placeholder="Keresztnév"  />
 		 	    <input type="text" id="username" name="username" th:field="*{username}" class="form-control" placeholder="Felhasználónév"  />
 			    <input type="password" id="password" name="password" th:field="*{password}"  class="form-control" placeholder="Jelszó" />
+			    <input id="notrobot" name="notrobot" type="checkbox" th:field="*{notrobot}"/> Nem vagyok robot
+				
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Regisztráció</button>
 		</form>
    </nav>

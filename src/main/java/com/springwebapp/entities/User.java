@@ -37,6 +37,11 @@ public class User {
 	@Column( nullable=false )
 	private String password;
 	
+	@Column(nullable=false)
+	private boolean notrobot;
+	
+	private String activation;
+
 	@ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER )
 	@JoinTable( 
 		name = "users_roles", 
@@ -55,6 +60,23 @@ public class User {
 		this.firstname = firstname;
 		this.username = username;
 		this.password = password;
+	}
+	
+
+	public boolean isNotrobot() {
+		return notrobot;
+	}
+
+	public void setNotrobot(boolean notrobot) {
+		this.notrobot = notrobot;
+	}
+
+	public String getActivation() {
+		return activation;
+	}
+
+	public void setActivation(String activation) {
+		this.activation = activation;
 	}
 
 	public String getEmail() {

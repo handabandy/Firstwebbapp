@@ -1,6 +1,7 @@
 package com.springwebapp.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +30,7 @@ public class StoriesController {
 	private EmailService emailService;
 	private BloggerService bloggerService;
 	private UserService userService;
+	
 	
 	@Autowired
 	public void setUserService(UserService userService) {
@@ -111,23 +114,37 @@ public class StoriesController {
 	@RequestMapping("/registration")
 	public String registration(Model model){
 		model.addAttribute("user", new User());
+		
 		return "registration";
 	}
 	
 //	@RequestMapping(value = "/reg", method = RequestMethod.POST) ez ugyanazt csinálja, mint a következő sor.
 	@PostMapping("/reg")
-    public String greetingSubmit(@ModelAttribute User user) {
-		log.info("Uj user!");
-		emailService.sendMessage(user.getEmail(),user.getFirstname());
-		log.info(user.getUsername());
-		log.debug(user.getPassword());
-		boolean valasz=userService.registerUser(user);
-		if (!valasz) {
+    public String greetingSubmit(@ModelAttribute User user,Model model) {
+		
+		if (!user.isNotrobot()) {
+			model.addAttribute("hiba", "ROBOTOK nem Regisztrálhatnak!!!");
 			return"unsuccess";
 		}
 		
+		boolean valasz=userService.registerUser(user);
+		if (!valasz) {
+			model.addAttribute("hiba", "A felhasználónév vagy az e-mail cím már foglalt!!!");
+			return"unsuccess";
+		}
+        log.info("Uj user!");		
+		log.info(user.getUsername());
+		log.debug(user.getPassword());
+		emailService.sendMessage(user.getEmail(),user.getFirstname());
+		
         return "auth/login";
 }
+	
+	@RequestMapping(path="/activation/{code}", method=RequestMethod.GET)
+	public String activation (@PathVariable("code")String code,HttpServletResponse response) {
+		String result=userService.userActivation(code);
+		return result;
+	}
 	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(HttpServletRequest rA, Exception ex, Model model) {

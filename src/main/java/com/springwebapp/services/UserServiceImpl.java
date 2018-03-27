@@ -1,6 +1,9 @@
 package com.springwebapp.services;
 
 import java.util.List;
+import java.util.Random;
+
+
 
 //import javax.annotation.PostConstruct;
 
@@ -83,15 +86,44 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				user.addRoles(ADMIN_ROLE);
 			}
 		}
+		user.setNotrobot(false);
+		user.setActivation(generateKey());
 		userRepo.save(user);
 		String name=user.getLastname()+" "+user.getFirstname();
 		Blogger blogger=new Blogger(name, user.getUsername());
 		bloggerrepo.save(blogger);
 		return true;
 	}
+	
+	private String generateKey() {
+		Random random=new Random();
+		char[] word=new char[16];
+		
+		for(int i=0; i<word.length; i++) {
+			word[i]=(char)('a'+random.nextInt(26));
+		}
+		return new String(word);
+	}
+
+
+
 	//@PostConstruct
 	public void init() {
 		//userRepo.delete(findByUsername("admin"));
+	}
+
+
+
+	@Override
+	public String userActivation(String code) {
+		User user=userRepo.findByActivation(code);
+		if(user==null) {
+			return "hiba";
+		}
+		user.setNotrobot(true);
+		user.setActivation("");
+		userRepo.save(user);
+		return "ok";
 	}
 
 }
