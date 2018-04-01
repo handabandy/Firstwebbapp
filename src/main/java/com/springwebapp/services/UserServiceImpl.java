@@ -57,13 +57,17 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 
 	@Override
-	public boolean registerUser(User user) {
+	public String registerUser(User user) {
 		
+		String result=controllUser(user);
+		
+		if(result.equals("ok")) {
+			
 		List<User> userek=userRepo.findAll();
 		
 		for(User u: userek) {
 			if(u.getUsername().equals(user.getUsername()) && u.getEmail().equals(user.getEmail()))
-				return false;
+				return "A felhasználónév vagy az e-mail cím már foglalt!!!";
 		}
 		
 		Role adminRole=roleRepo.findByRole(ADMIN_ROLE);
@@ -92,8 +96,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		String name=user.getLastname()+" "+user.getFirstname();
 		Blogger blogger=new Blogger(name, user.getUsername());
 		bloggerrepo.save(blogger);
-		return true;
+		return "ok";
+		}
+		else
+			return result;
 	}
+	
 	
 	private String generateKey() {
 		Random random=new Random();
@@ -126,4 +134,22 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		return "ok";
 	}
 
+	public String controllUser(User user) {
+		if (user.getEmail().equals("")) {
+			return "Az e-mail nem lehet üres!";
+		}
+		if (user.getFirstname().equals("")) {
+			return "A Keresztnév nem lehet üres!";
+		}
+		if (user.getLastname().equals("")) {
+			return "A Vezetéknév nem lehet üres!";
+		}
+		if (user.getPassword().equals("")) {
+			return "A Jelszó nem lehet üres!";
+		}
+		if (user.getUsername().equals("")) {
+			return "A Felhasználónév nem lehet üres!";
+		}
+		return "ok";
+	}
 }

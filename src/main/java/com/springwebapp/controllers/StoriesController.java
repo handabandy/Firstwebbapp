@@ -127,14 +127,16 @@ public class StoriesController {
 			return"unsuccess";
 		}
 		
-		boolean valasz=userService.registerUser(user);
-		if (!valasz) {
-			model.addAttribute("hiba", "A felhasználónév vagy az e-mail cím már foglalt!!!");
+		String valasz=userService.registerUser(user);
+		if (!(valasz.equals("ok"))) {
+			model.addAttribute("hiba", valasz);
 			return"unsuccess";
 		}
-        log.info("Uj user!");		
+		log.info(valasz);
+        log.info(user.getFirstname());		
 		log.info(user.getUsername());
-		log.debug(user.getPassword());
+		log.info(user.getEmail());
+		log.info(user.getLastname());
 		emailService.sendMessage(user.getEmail(),user.getFirstname());
 		
         return "auth/login";
