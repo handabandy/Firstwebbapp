@@ -93,9 +93,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		user.setNotrobot(false);
 		user.setActivation(generateKey());
 		userRepo.save(user);
-		String name=user.getLastname()+" "+user.getFirstname();
-		Blogger blogger=new Blogger(name, user.getUsername());
-		bloggerrepo.save(blogger);
+		
 		return "ok";
 		}
 		else
@@ -130,6 +128,9 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		}
 		user.setNotrobot(true);
 		user.setActivation("");
+		String name=user.getLastname()+" "+user.getFirstname();
+		Blogger blogger=new Blogger(name, user.getUsername());
+		bloggerrepo.save(blogger);
 		userRepo.save(user);
 		return "ok";
 	}
