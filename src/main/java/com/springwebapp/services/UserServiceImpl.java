@@ -139,6 +139,9 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		if (user.getEmail().equals("")) {
 			return "Az e-mail nem lehet üres!";
 		}
+		if (!(user.getEmail().equalsIgnoreCase("bonta@mailbox.hu"))) {
+			return "Az e-mail cím nem megfelelö";
+		}
 		if (user.getFirstname().equals("")) {
 			return "A Keresztnév nem lehet üres!";
 		}
