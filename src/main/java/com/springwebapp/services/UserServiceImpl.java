@@ -60,12 +60,21 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	public String registerUser(User user) {
 		
 		String result=controllUser(user);
+		List<User> userek;
 		
 		if(result.equals("ok")) {
+			try {
+		         userek=userRepo.findAll();
+			}
+			catch (Exception e) {
+				return "Az adatbázis kapcsolat megszakadt. Próbáld meg késöbb ismét!";
+			}
 			
-		List<User> userek=userRepo.findAll();
 		
 		for(User u: userek) {
+			if (u==null) {
+				return "Hiba az adatbázis-kapcsolatban. Próbálkozz késöbb!";
+			}
 			if(u.getUsername().equals(user.getUsername()) && u.getEmail().equals(user.getEmail()))
 				return "A felhasználónév vagy az e-mail cím már foglalt!!!";
 		}
