@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySources;
 
 @EnableConfigurationProperties
 @PropertySources({
-    @PropertySource(value = "file:${opt/tomcat/conf/app1conf}", ignoreResourceNotFound = true)
+    @PropertySource(value = "file:${/opt/tomcat/conf/app1conf}", ignoreResourceNotFound = true)
 })
 @SpringBootApplication
 public class Spring5webapp2Application extends SpringBootServletInitializer{

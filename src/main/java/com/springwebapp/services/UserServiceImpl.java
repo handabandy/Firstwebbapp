@@ -3,7 +3,7 @@ package com.springwebapp.services;
 import java.util.List;
 import java.util.Random;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 //import javax.annotation.PostConstruct;
 
@@ -18,12 +18,15 @@ import com.springwebapp.entities.User;
 import com.springwebapp.repository.BloggerRepository;
 import com.springwebapp.repository.RoleRepository;
 import com.springwebapp.repository.UserRepository;
+import com.springwebapp.services.EmailService;
+
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService{
 	
 	private UserRepository userRepo;
 	private RoleRepository roleRepo;
 	private BloggerRepository bloggerrepo;
+	private EmailService emailService;
 	
 	private final String USER_ROLE="USER";
 	private final String ADMIN_ROLE="ADMIN";
@@ -35,6 +38,10 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		this.bloggerrepo=bRepository;
 	}
 
+	@Autowired
+	public void setEmailService(EmailService emailService) {
+		this.emailService = emailService;
+}
 
 
 	@Override
@@ -99,9 +106,16 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				user.addRoles(ADMIN_ROLE);
 			}
 		}
+		String activationKey=generateKey();
+		emailService.sendMessage(user.getEmail(), user.getFirstname(), activationKey);
 		user.setNotrobot(false);
-		user.setActivation(generateKey());
+		user.setActivation(activationKey);
+		try {
 		userRepo.save(user);
+		}
+		catch (Exception e) {
+			return "A mentés nem sikerült!";
+		}
 		
 		return "ok";
 		}
@@ -131,16 +145,28 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 	@Override
 	public String userActivation(String code) {
-		User user=userRepo.findByActivation(code);
+		
+		User user;
+		try {
+			user=userRepo.findByActivation(code);
+		} catch (Exception e) {
+			return "Hiba az adatbáziskapcsolatban!";
+		}
+		
 		if(user==null) {
-			return "hiba";
+			return "Hiba, a felhasználó nem található!";
 		}
 		user.setNotrobot(true);
 		user.setActivation("");
 		String name=user.getLastname()+" "+user.getFirstname();
 		Blogger blogger=new Blogger(name, user.getUsername());
+		try {
 		bloggerrepo.save(blogger);
 		userRepo.save(user);
+		}
+		catch (Exception e) {
+			return "A mentés nem sikerált!!!";
+		}
 		return "ok";
 	}
 

@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.springwebapp.entities.User;
 import com.springwebapp.services.BloggerService;
-import com.springwebapp.services.EmailService;
+
 import com.springwebapp.services.StoryService;
 import com.springwebapp.services.UserService;
 
@@ -27,7 +27,7 @@ public class StoriesController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	private StoryService storyService;
-	private EmailService emailService;
+	
 	private BloggerService bloggerService;
 	private UserService userService;
 	
@@ -42,10 +42,7 @@ public class StoriesController {
 		this.bloggerService = bloggerService;
 	}
 
-	@Autowired
-	public void setEmailService(EmailService emailService) {
-		this.emailService = emailService;
-}
+	
 	
 
 	public StoriesController(StoryService storyService) {
@@ -124,28 +121,39 @@ public class StoriesController {
 		
 		if (!user.isNotrobot()) {
 			model.addAttribute("hiba", "ROBOTOK nem Regisztrálhatnak!!!");
-			return"unsuccess";
+			return "unsuccess";
 		}
 		
 		String valasz=userService.registerUser(user);
 		if (!(valasz.equals("ok"))) {
 			model.addAttribute("hiba", valasz);
-			return"unsuccess";
+			return "unsuccess";
 		}
 		log.info(valasz);
         log.info(user.getFirstname());		
 		log.info(user.getUsername());
 		log.info(user.getEmail());
 		log.info(user.getLastname());
-		emailService.sendMessage(user.getEmail(),user.getFirstname());
+		
 		
         return "auth/login";
 }
 	
 	@RequestMapping(path="/activation/{code}", method=RequestMethod.GET)
-	public String activation (@PathVariable("code")String code,HttpServletResponse response) {
+	public String activation (@PathVariable("code")String code,HttpServletResponse response, Model model) {
 		String result=userService.userActivation(code);
-		return result;
+		if (!(result.equals("ok"))) {
+			model.addAttribute("hiba", result);
+			return "unsuccess";
+		}
+		else if (result.equals("ok")) {
+			model.addAttribute("hiba", "Sikeres Regisztráció");
+			return "unsuccess";
+		}
+		else {
+			model.addAttribute("hiba","Ismeretlen eredetü hiba lépett fel!");
+			return "unsuccess";
+		}
 	}
 	
 	@ExceptionHandler(Exception.class)
