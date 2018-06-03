@@ -1,14 +1,59 @@
 <!DOCTYPE html>
-<html lang="hu"	layout:decorator="layouts/main">
+<html lang="hu"	layout:decorator="layouts/main" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8"></meta>
 	<title th:text="#{pageTitle}">SFj - Minden napra egy sztori</title>
+	
+	 <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 		
-	<div layout:fragment="loginContent">
+<div layout:fragment="loginContent">
+	<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <h1 class="panel-title">Sztorik</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <thead class="thead-inverse">
+                            
+                            <tr>
+                                <th>Cím</th>
+                                <th>Történet</th>
+                                <th>Beküldve</th>
+                                <th>Beküldte</th>
+                            </tr>
+                            
+                            </thead>
+                            
+                            <tr th:each="story : ${stories}">
+                                <td th:text="${story.title}">Ez itt a cím</td>
+                                <td th:text="${story.content}">Egy buta sztori</td>
+                                <td th:text="${#dates.format(story.posted, 'yyyy.MM.dd HH:mm')}">
+                                Posted on September 31, 2015 at 10:00 PM</td>
+                                <td th:text="${story.blogger.name}">Anonymous</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 		
-		<article th:each="story : ${stories}">
+	<!--  	<article th:each="story : ${stories}">
         <header>
             <h1 th:text="${story.title}">Ez itt a cím</h1> 
             <p th:text="${#dates.format(story.posted, 'yyyy.MM.dd HH:mm')}">Posted on September 31, 2015 at 10:00 PM</p>
@@ -23,7 +68,7 @@
         </footer>
         <hr/>
     </article>
-
+    -->
 	</div>
 		
 </body>

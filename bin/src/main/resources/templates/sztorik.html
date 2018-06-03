@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="hu"	layout:decorator="layouts/main">
+<head>
+<meta charset="UTF-8"></meta>
+	<title th:text="#{pageTitle}">SFj - Minden napra egy sztori</title>
+</head>
+<body>
+		
+	<div layout:fragment="loginContent">
+		
+		<article th:each="story : ${stories}">
+        <header>
+            <h1 th:text="${story.title}">Ez itt a cím</h1> 
+            <p th:text="${#dates.format(story.posted, 'yyyy.MM.dd HH:mm')}">Posted on September 31, 2015 at 10:00 PM</p>
+        </header>
+    
+ 	    <h3 th:utext="${story.content}">Egy buta sztori</h3>
+        
+        <footer>
+            <address>
+                Beküldte: <span th:text="${story.blogger.name}">Anonymous</span>
+            </address>
+        </footer>
+        <hr/>
+    </article>
+
+	</div>
+		
+</body>
+</html>
