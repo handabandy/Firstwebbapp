@@ -73,10 +73,7 @@ public class StoriesController {
 		return "story";
 	}
 	
-	@RequestMapping({"/index","/"})
-	public String home(){
-		return "index";
-	}
+	
 	
 	@RequestMapping("/bloggers")
 	public String bloggers(Model model){

@@ -37,6 +37,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
 		          .antMatchers("/registration").permitAll()
 		          .antMatchers("/reg").permitAll()
 		          .antMatchers("/activation/*").permitAll()
+		          .antMatchers("/joke").permitAll()
 		          .anyRequest().authenticated()  //mindenhez kér jelszót
 		        .and()
 		          .formLogin()

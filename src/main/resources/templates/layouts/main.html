@@ -29,8 +29,8 @@
 		       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				    <ul class="nav navbar-nav">
 				        <li class="active"><a href="/index">Kezdőoldal</a></li>
-				        <li class=""><a href="/sztorik">Sztorik</a></li>
-				        <li class=""><a href="/bloggers">Bloggerek</a></li>
+				        <li class=""><a sec:authorize="hasAuthority('USER')" href="/sztorik">Sztorik</a></li>
+				        <li class=""><a sec:authorize="hasAuthority('USER')" href="/bloggers">Bloggerek</a></li>
 				        <li class=""><a href="/joke">Vitzek</a></li>
 				        <li class=""><a sec:authorize="hasAuthority('USER')" href="/joke">Új Blogbejegyzés</a></li>
 				        <li class=""><a sec:authorize="hasAuthority('ADMIN')" href="/joke">Admin</a></li>
